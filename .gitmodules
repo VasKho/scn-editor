@@ -1,0 +1,3 @@
+[submodule "problem-solver/sc-machine"]
+	path = problem-solver/sc-machine
+	url = git@github.com:ostis-ai/sc-machine

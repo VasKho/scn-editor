@@ -1,0 +1,2 @@
+add_subdirectory(scnEditorModule)
+add_subdirectory(uiModule)

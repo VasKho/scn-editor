@@ -1,0 +1,10 @@
+.vscode
+.cache
+bin
+build
+.env
+
+kb.bin
+
+sc-memory.log
+sc-server.log
