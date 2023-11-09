@@ -13,6 +13,18 @@ sc_result scnEditorModule::InitializeImpl() {
     SC_LOG_ERROR("createScnPageAgent keynodes initialization failed");
     return SC_RESULT_ERROR;
   }
+  if (!addToScnPageKeynodes::InitGlobal()) {
+    SC_LOG_ERROR("addToScnPageAgent keynodes initialization failed");
+    return SC_RESULT_ERROR;
+  }
+  if (!removeFromScnPageKeynodes::InitGlobal()) {
+    SC_LOG_ERROR("removeFromScnPageAgent keynodes initialization failed");
+    return SC_RESULT_ERROR;
+  }
+  if (!deleteScnPageKeynodes::InitGlobal()) {
+    SC_LOG_ERROR("deleteScnPageAgent keynodes initialization failed");
+    return SC_RESULT_ERROR;
+  }
   if (!openScnPageKeynodes::InitGlobal()) {
     SC_LOG_ERROR("openScnPageAgent keynodes initialization failed");
     return SC_RESULT_ERROR;
@@ -21,6 +33,9 @@ sc_result scnEditorModule::InitializeImpl() {
   ScMemoryContext ctx(sc_access_lvl_make_min, "scnEditorModule");
   SC_AGENT_REGISTER(scn_editor_module::selectScnPageAgent);
   SC_AGENT_REGISTER(scn_editor_module::createScnPageAgent);
+  SC_AGENT_REGISTER(scn_editor_module::addToScnPageAgent);
+  SC_AGENT_REGISTER(scn_editor_module::removeFromScnPageAgent);
+  SC_AGENT_REGISTER(scn_editor_module::deleteScnPageAgent);
   SC_AGENT_REGISTER(scn_editor_module::openScnPageAgent);
 
   return SC_RESULT_OK;
@@ -29,6 +44,9 @@ sc_result scnEditorModule::InitializeImpl() {
 sc_result scnEditorModule::ShutdownImpl() {
   SC_AGENT_UNREGISTER(scn_editor_module::selectScnPageAgent);
   SC_AGENT_UNREGISTER(scn_editor_module::createScnPageAgent);
+  SC_AGENT_UNREGISTER(scn_editor_module::addToScnPageAgent);
+  SC_AGENT_UNREGISTER(scn_editor_module::removeFromScnPageAgent);
+  SC_AGENT_UNREGISTER(scn_editor_module::deleteScnPageAgent);
   SC_AGENT_UNREGISTER(scn_editor_module::openScnPageAgent);
 
   return SC_RESULT_OK;

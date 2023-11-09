@@ -5,8 +5,19 @@
 
 #include "selectScnPageKeynodes.hpp"
 #include "selectScnPageAgent.hpp"
+
 #include "createScnPageKeynodes.hpp"
 #include "createScnPageAgent.hpp"
+
+#include "addToScnPageKeynodes.hpp"
+#include "addToScnPageAgent.hpp"
+
+#include "removeFromScnPageKeynodes.hpp"
+#include "removeFromScnPageAgent.hpp"
+
+#include "deleteScnPageKeynodes.hpp"
+#include "deleteScnPageAgent.hpp"
+
 #include "openScnPageKeynodes.hpp"
 #include "openScnPageAgent.hpp"
 

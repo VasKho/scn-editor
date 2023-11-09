@@ -49,11 +49,19 @@ SC_AGENT_IMPLEMENTATION(selectScnPageAgent) {
     m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, selectScnPageKeynodes::rrel_current_scn_page, curPage->Get(1));
   }
 
-  SC_LOG_INFO("createScnPageAgent: New current sc.n-page selected successfully");
+  SC_LOG_INFO("selectScnPageAgent: New current sc.n-page selected successfully");
   
   return SC_RESULT_OK;
 }
 
 bool selectScnPageAgent::checkActionClass(ScAddr const & actionAddr) {
   return m_memoryCtx.HelperCheckEdge(selectScnPageKeynodes::action_select_scn_page, actionAddr, ScType::EdgeAccessConstPosPerm);
+}
+
+ScAddr selectScnPageAgent::prepareActionInit(ScMemoryContext* ctx, ScAddr newCurrentPage) {
+  ScAddr actionNode = ctx->CreateNode(ScType::NodeConst);
+  ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, selectScnPageKeynodes::action_select_scn_page, actionNode);
+  ScAddr edge = ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, actionNode, newCurrentPage);
+  ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, scAgentsCommon::CoreKeynodes::rrel_1, edge);
+  return actionNode;
 }

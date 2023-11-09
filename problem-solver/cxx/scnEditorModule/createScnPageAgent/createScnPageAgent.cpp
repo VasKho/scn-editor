@@ -1,8 +1,11 @@
+#include "sc-agents-common/utils/AgentUtils.hpp"
 #include "sc-agents-common/utils/IteratorUtils.hpp"
 #include "sc-agents-common/keynodes/coreKeynodes.hpp"
 
 #include "createScnPageKeynodes.hpp"
+#include "selectScnPageKeynodes.hpp"
 
+#include "selectScnPageAgent.hpp"
 #include "createScnPageAgent.hpp"
 
 using namespace scn_editor_module;
@@ -36,12 +39,6 @@ SC_AGENT_IMPLEMENTATION(createScnPageAgent) {
   if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
     SC_LOG_ERROR("createScnPageAgent: Failed to create new sc.n-page");
     return SC_RESULT_ERROR;
-  } else if (makeCurrentBool) {
-    ScIterator3Ptr curPage = m_memoryCtx.Iterator3(createScnPageKeynodes::rrel_current_scn_page, ScType::EdgeAccessConstPosPerm, ScType::EdgeAccessConstPosPerm);
-    while (curPage->Next()) {
-      m_memoryCtx.EraseElement(curPage->Get(1));
-    }
-    m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, createScnPageKeynodes::rrel_current_scn_page, result[1]);
   }
 
   ScAddr const& pageName = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_2);
@@ -52,6 +49,11 @@ SC_AGENT_IMPLEMENTATION(createScnPageAgent) {
   }
 
   SC_LOG_INFO("createScnPageAgent: New sc.n-page created successfully.");
+
+  if (makeCurrentBool) {
+    ScAddr action = selectScnPageAgent::prepareActionInit(&m_memoryCtx, result[2]);
+    utils::AgentUtils::getActionResultIfExists(&m_memoryCtx, action, 400);
+  }
 
   return SC_RESULT_OK;
 }
