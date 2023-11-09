@@ -26,6 +26,10 @@ SC_AGENT_IMPLEMENTATION(selectScnPageAgent) {
     m_memoryCtx.GetLinkContent(newCurScnPage, str);
     newCurScnPage = m_memoryCtx.HelperResolveSystemIdtf(str);
   }
+  if (m_memoryCtx.GetElementType(newCurScnPage) != ScType::NodeConstStruct) {
+    SC_LOG_ERROR("selectScnPageAgent: Give element is not a valid sc.n-page");
+    return SC_RESULT_ERROR;
+  }
 
   ScIterator5Ptr testOnScnPage = m_memoryCtx.Iterator5(
     selectScnPageKeynodes::scn_editor,
