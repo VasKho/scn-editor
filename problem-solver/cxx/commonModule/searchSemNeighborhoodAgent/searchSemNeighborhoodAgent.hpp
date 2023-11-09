@@ -10,9 +10,11 @@ namespace common_module {
     SC_CLASS(Agent, Event(scAgentsCommon::CoreKeynodes::question_initiated, ScEvent::Type::AddOutputEdge))
     SC_GENERATED_BODY()
 
+    public:
+    static ScAddr prepareActionInit(ScMemoryContext* ctx, ScAddr rootNode);
+    
     private:
     bool checkActionClass(ScAddr const & actionAddr);
-
     void addInputTriples(ScMemoryContext* ctx, ScAddr answer, ScAddr node);
     void addOutputTriples(ScMemoryContext* ctx, ScAddr answer, ScAddr node);
   };

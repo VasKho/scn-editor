@@ -2,9 +2,8 @@
 #include "sc-agents-common/utils/IteratorUtils.hpp"
 #include "sc-agents-common/keynodes/coreKeynodes.hpp"
 
-#include "openScnPageKeynodes.hpp"
 #include "selectScnPageAgent.hpp"
-
+#include "openScnPageKeynodes.hpp"
 #include "openScnPageAgent.hpp"
 
 using namespace scn_editor_module;
@@ -23,60 +22,33 @@ SC_AGENT_IMPLEMENTATION(openScnPageAgent) {
     return SC_RESULT_ERROR;
   }
 
-  ScAddr const& inCurrent = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_2);
-  bool inCurrentBool = false;
-  if (inCurrent.IsValid()) {
-    std::string str;
-    m_memoryCtx.GetLinkContent(inCurrent, str);
-    inCurrentBool = (str == "true");
-  }
-
   ScAddr action = m_memoryCtx.CreateNode(ScType::NodeConst);
-  m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, action, scnRootNode);
-  m_memoryCtx.CreateEdge(
-    ScType::EdgeAccessConstPosPerm,
-    m_memoryCtx.HelperResolveSystemIdtf("question_search_full_semantic_neighborhood"),
-    action
-  );
-
-  m_memoryCtx.CreateEdge(
-    ScType::EdgeAccessConstPosPerm,
-    m_memoryCtx.HelperResolveSystemIdtf("question"),
-    action
-  );
-
-  m_memoryCtx.CreateEdge(
-    ScType::EdgeAccessConstPosPerm,
-    m_memoryCtx.HelperResolveSystemIdtf("question_initiated"),
-    action
-  );
+  m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, m_memoryCtx.HelperResolveSystemIdtf("action_search_semantic_neighborhood"), action);
+  ScAddr edge = m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, action, scnRootNode);
+  m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, scAgentsCommon::CoreKeynodes::rrel_1, edge);
+  utils::AgentUtils::getActionResultIfExists(&m_memoryCtx, action, 500);
 
   ScAddr answer = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, action, scAgentsCommon::CoreKeynodes::nrel_answer);
 
-  if (inCurrentBool) {
-    // ScAddr const& currentPage = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, openScnPageKeynodes::scn_editor, scAgentsCommon::CoreKeynodes::rrel_current_scn_page);
-    // m_memoryCtx.CreateEdge(ScType::);
-  } else {
-    ScTemplate templ;
-    templ.TripleWithRelation(
-      openScnPageKeynodes::scn_editor,
-      ScType::EdgeAccessVarPosPerm,
-      answer,
-      ScType::EdgeAccessVarPosPerm,
-      openScnPageKeynodes::rrel_scn_page
-    );
+  ScTemplate templ;
+  templ.TripleWithRelation(
+    openScnPageKeynodes::scn_editor,
+    ScType::EdgeAccessVarPosPerm,
+    answer,
+    ScType::EdgeAccessVarPosPerm,
+    openScnPageKeynodes::rrel_scn_page
+  );
 
-    ScTemplateGenResult result;
-    if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
-      SC_LOG_ERROR("openScnPageAgent: Failed to create new sc.n-page");
-      return SC_RESULT_ERROR;
-    }
-
-    ScAddr action = selectScnPageAgent::prepareActionInit(&m_memoryCtx, result[2]);
-    utils::AgentUtils::getActionResultIfExists(&m_memoryCtx, action, 400);
+  ScTemplateGenResult result;
+  if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
+    SC_LOG_ERROR("openScnPageAgent: Failed to create new sc.n-page");
+    return SC_RESULT_ERROR;
   }
   
-  SC_LOG_ERROR(m_memoryCtx.GetElementType(answer).IsValid());
+  action = selectScnPageAgent::prepareActionInit(&m_memoryCtx, result[2]);
+  utils::AgentUtils::getActionResultIfExists(&m_memoryCtx, action, 400);
+
+  SC_LOG_INFO("openScnPageAgent: new sc.n-page opened successfully");
   
   return SC_RESULT_OK;
 }

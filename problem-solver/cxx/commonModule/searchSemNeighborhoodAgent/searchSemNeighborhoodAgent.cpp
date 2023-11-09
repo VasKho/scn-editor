@@ -85,3 +85,11 @@ void searchSemNeighborhoodAgent::addOutputTriples(ScMemoryContext* ctx, ScAddr a
     }
   }
 }
+
+ScAddr searchSemNeighborhoodAgent::prepareActionInit(ScMemoryContext* ctx, ScAddr rootNode) {
+  ScAddr actionNode = ctx->CreateNode(ScType::NodeConst);
+  ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, searchSemNeighborhoodKeynodes::action_search_sem_neighborhood, actionNode);
+  ScAddr edge = ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, actionNode, rootNode);
+  ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, scAgentsCommon::CoreKeynodes::rrel_1, edge);
+  return actionNode;
+}
