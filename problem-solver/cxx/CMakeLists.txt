@@ -1,2 +1,3 @@
+add_subdirectory(commonModule)
 add_subdirectory(scnEditorModule)
 add_subdirectory(uiModule)

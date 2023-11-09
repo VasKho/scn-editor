@@ -12,6 +12,9 @@ namespace common_module {
 
     private:
     bool checkActionClass(ScAddr const & actionAddr);
+
+    void addInputTriples(ScMemoryContext* ctx, ScAddr answer, ScAddr node);
+    void addOutputTriples(ScMemoryContext* ctx, ScAddr answer, ScAddr node);
   };
 
 }  // namespace common_module

@@ -2,6 +2,7 @@
 #include "sc-agents-common/utils/IteratorUtils.hpp"
 #include "sc-agents-common/keynodes/coreKeynodes.hpp"
 
+#include "searchSemNeighborhoodKeynodes.hpp"
 #include "searchSemNeighborhoodAgent.hpp"
 
 using namespace common_module;
@@ -13,47 +14,74 @@ SC_AGENT_IMPLEMENTATION(searchSemNeighborhoodAgent) {
     return SC_RESULT_OK;
   }
   SC_LOG_DEBUG("searchSemNeighborhoodAgent started");
+  
+  ScAddr rootNode = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_1);
+  if (!rootNode.IsValid()) {
+    SC_LOG_ERROR("searchSemNeighborhoodAgent: Invalid ScAddr");
+    return SC_RESULT_ERROR;
+  }
 
-  // ScAddr const& makeCurrent = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_1);
-  // bool makeCurrentBool = true;
-  // if (makeCurrent.IsValid()) {
-  //   std::string str;
-  //   m_memoryCtx.GetLinkContent(makeCurrent, str);
-  //   makeCurrentBool = (str == "true");
-  // }
+  ScTemplate templ;
+  templ.TripleWithRelation(
+    questionNode,
+    ScType::EdgeDCommonVar,
+    ScType::NodeVarStruct,
+    ScType::EdgeAccessVarPosPerm,
+    scAgentsCommon::CoreKeynodes::nrel_answer
+  );
 
-  // ScTemplate templ;
-  // templ.TripleWithRelation(
-  //   createScnPageKeynodes::scn_editor,
-  //   ScType::EdgeAccessVarPosPerm,
-  //   ScType::NodeVarStruct,
-  //   ScType::EdgeAccessVarPosPerm,
-  //   createScnPageKeynodes::rrel_scn_page
-  // );
+  ScTemplateGenResult result;
+  if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
+    SC_LOG_ERROR("searchSemNeighborhoodAgent: Failed to generate answer node");
+    return SC_RESULT_ERROR;
+  }
 
-  // ScTemplateGenResult result;
-  // if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
-  //   SC_LOG_ERROR("createScnPageAgent: Failed to create new sc.n-page");
-  //   return SC_RESULT_ERROR;
-  // }
+  addInputTriples(&m_memoryCtx, result[2], rootNode);
+  addOutputTriples(&m_memoryCtx, result[2], rootNode);
 
-  // ScAddr const& pageName = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_2);
-  // if (pageName.IsValid()) {
-  //   std::string str;
-  //   m_memoryCtx.GetLinkContent(pageName, str);
-  //   m_memoryCtx.HelperSetSystemIdtf(str, result[2]);
-  // }
+  m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, result[2], rootNode);
 
-  // SC_LOG_INFO("createScnPageAgent: New sc.n-page created successfully.");
-
-  // if (makeCurrentBool) {
-  //   ScAddr action = selectScnPageAgent::prepareActionInit(&m_memoryCtx, result[2]);
-  //   utils::AgentUtils::getActionResultIfExists(&m_memoryCtx, action, 400);
-  // }
-
+  SC_LOG_INFO("searchSemNeighborhoodAgent: Answer generated");
+  
   return SC_RESULT_OK;
 }
 
 bool searchSemNeighborhoodAgent::checkActionClass(ScAddr const & actionAddr) {
-  return false; //m_memoryCtx.HelperCheckEdge(createScnPageKeynodes::action_create_scn_page, actionAddr, ScType::EdgeAccessConstPosPerm);
+  return m_memoryCtx.HelperCheckEdge(searchSemNeighborhoodKeynodes::action_search_sem_neighborhood, actionAddr, ScType::EdgeAccessConstPosPerm);
+}
+
+void searchSemNeighborhoodAgent::addInputTriples(ScMemoryContext* ctx, ScAddr answer, ScAddr node) {
+  ScIterator3Ptr inArcs = ctx->Iterator3(ScType::Unknown, ScType::Unknown, node);
+  while (inArcs->Next()) {
+    ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, inArcs->Get(0));
+    ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, inArcs->Get(1));
+    ScIterator3Ptr inArcs2 = ctx->Iterator3(ScType::Unknown, ScType::Unknown, inArcs->Get(1));
+    while (inArcs2->Next()) {
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, inArcs2->Get(0));
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, inArcs2->Get(1));
+    }
+    ScIterator3Ptr outArcs2 = ctx->Iterator3(inArcs->Get(1), ScType::Unknown, ScType::Unknown);
+    while (outArcs2->Next()) {
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, outArcs2->Get(0));
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, outArcs2->Get(1));
+    }
+  }
+}
+
+void searchSemNeighborhoodAgent::addOutputTriples(ScMemoryContext* ctx, ScAddr answer, ScAddr node) {
+  ScIterator3Ptr outArcs = ctx->Iterator3(node, ScType::Unknown, ScType::Unknown);
+  while (outArcs->Next()) {
+    ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, outArcs->Get(2));
+    ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, outArcs->Get(1));
+    ScIterator3Ptr inArcs2 = ctx->Iterator3(ScType::Unknown, ScType::Unknown, outArcs->Get(1));
+    while (inArcs2->Next()) {
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, inArcs2->Get(0));
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, inArcs2->Get(1));
+    }
+    ScIterator3Ptr outArcs2 = ctx->Iterator3(outArcs->Get(1), ScType::Unknown, ScType::Unknown);
+    while (outArcs2->Next()) {
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, outArcs2->Get(0));
+      ctx->CreateEdge(ScType::EdgeAccessConstPosPerm, answer, outArcs2->Get(1));
+    }
+  }
 }
