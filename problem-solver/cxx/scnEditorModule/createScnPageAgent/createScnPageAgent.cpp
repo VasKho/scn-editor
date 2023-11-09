@@ -2,10 +2,10 @@
 #include "sc-agents-common/utils/IteratorUtils.hpp"
 #include "sc-agents-common/keynodes/coreKeynodes.hpp"
 
-#include "createScnPageKeynodes.hpp"
 #include "selectScnPageKeynodes.hpp"
-
 #include "selectScnPageAgent.hpp"
+
+#include "createScnPageKeynodes.hpp"
 #include "createScnPageAgent.hpp"
 
 using namespace scn_editor_module;
@@ -26,6 +26,16 @@ SC_AGENT_IMPLEMENTATION(createScnPageAgent) {
     makeCurrentBool = (str == "true");
   }
 
+  ScAddr const& pageName = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_2);
+  std::string pageIdtf = "";
+  if (pageName.IsValid() && m_memoryCtx.GetElementType(pageName).IsLink()) {
+    m_memoryCtx.GetLinkContent(pageName, pageIdtf);
+    if (m_memoryCtx.HelperResolveSystemIdtf(pageIdtf).IsValid()) {
+      SC_LOG_ERROR("createScnPageAgent: Element with given system identifier already exists");
+      return SC_RESULT_ERROR;
+    }
+  }
+
   ScTemplate templ;
   templ.TripleWithRelation(
     createScnPageKeynodes::scn_editor,
@@ -41,14 +51,11 @@ SC_AGENT_IMPLEMENTATION(createScnPageAgent) {
     return SC_RESULT_ERROR;
   }
 
-  ScAddr const& pageName = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_2);
-  if (pageName.IsValid()) {
-    std::string str;
-    m_memoryCtx.GetLinkContent(pageName, str);
-    m_memoryCtx.HelperSetSystemIdtf(str, result[2]);
+  if (pageIdtf != "") {
+    m_memoryCtx.HelperSetSystemIdtf(pageIdtf, result[2]);
   }
 
-  SC_LOG_INFO("createScnPageAgent: New sc.n-page created successfully.");
+  SC_LOG_INFO("createScnPageAgent: New sc.n-page created successfully");
 
   if (makeCurrentBool) {
     ScAddr action = selectScnPageAgent::prepareActionInit(&m_memoryCtx, result[2]);
