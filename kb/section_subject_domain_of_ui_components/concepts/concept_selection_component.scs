@@ -1,0 +1,27 @@
+concept_selection_component
+=> nrel_main_idtf:
+  [компонент выбора] (* <- lang_ru;; *);
+  [selection] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);
+
+=> nrel_subdividing: {
+  concept_selection_with_multiple_values_component;
+  concept_selection_with_single_value_component
+} (*
+  => nrel_inclusion:
+    concept_checkbox_component;
+    concept_radiobutton_component;
+    concept_toggle_button_component;
+    concept_selectable_item_component;;
+*);;

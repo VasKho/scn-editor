@@ -1,0 +1,16 @@
+concept_menu_bar_component
+=> nrel_main_idtf:
+  [строка меню] (* <- lang_ru;; *);
+  [menu bar] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

@@ -1,0 +1,20 @@
+concept_continuous_manipulation_component
+=> nrel_main_idtf:
+  [компонент непрерывной манипуляци] (* <- lang_ru;; *);
+  [continuous manipulation component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_scrollbar_component;
+  concept_resizer_component;;

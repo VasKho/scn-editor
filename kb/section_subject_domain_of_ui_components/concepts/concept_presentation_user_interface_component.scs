@@ -1,0 +1,21 @@
+concept_presentation_user_interface_component
+=> nrel_main_idtf:
+  [компонент пользовательского интерфейса для отображения] (* <- lang_ru;; *);
+  [presentation user interface component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, который не предусматривает взаимодействие с пользователем] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [component of the user interface that does not imply interaction with the user] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_data_output_component;
+  concept_decorative_user_interface_component;
+  concept_container_component;;

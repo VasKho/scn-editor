@@ -1,0 +1,16 @@
+concept_speech_input_component
+=> nrel_main_idtf:
+  [компонент речевого ввода] (* <- lang_ru;; *);
+  [speech input component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

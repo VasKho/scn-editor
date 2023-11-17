@@ -1,0 +1,16 @@
+concept_progress_bar_component
+=> nrel_main_idtf:
+  [индикатор выполнения] (* <- lang_ru;; *);
+  [progress bar] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, предназначенный для отображения состояния процесса выполнения] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component that shows the execution status] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

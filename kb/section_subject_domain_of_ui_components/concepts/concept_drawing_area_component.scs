@@ -1,0 +1,16 @@
+concept_drawing_area_component
+=> nrel_main_idtf:
+  [область рисования] (* <- lang_ru;; *);
+  [drawing area] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

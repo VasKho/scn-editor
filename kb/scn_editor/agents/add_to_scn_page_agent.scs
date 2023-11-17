@@ -1,0 +1,33 @@
+add_to_scn_page_agent
+=> nrel_main_idtf:
+  [агент добавления элемента на sc.n-страницу] (* <- lang_ru;; *);
+  [add element to sc.n-page agent] (* <- lang_en;; *);
+
+<- sc_agent;
+
+<= nrel_sc_agent_key_sc_elements: ... (*
+  -> question_initiated;;
+  -> action_add_to_scn_page;;
+  -> scn_editor;;
+  -> rrel_scn_page;;
+  -> rrel_current_scn_page;;
+*);
+
+=> nrel_primary_initiation_condition: (sc_event_add_output_arc => question_initiated);
+=> nrel_initiation_condition_and_result: (..question => ..answer);;
+
+..question = [*
+  .._action _<- question_initiated;;
+  .._action _<- action_add_to_scn_page;;
+  .._action _-> rrel_1:: .._new;;
+*];;
+
+..answer = [*
+  scn_editor _-> rrel_current_scn_page:: _... (* _-> .._new;; *);;
+*];;
+
+action_add_to_scn_page
+<- sc_node_class;
+=> nrel_main_idtf:
+  [действие. добавить элемент на sc.n-страницу] (* <- lang_ru;; *);
+  [action. add element to sc.n-page] (* <- lang_en;; *);;

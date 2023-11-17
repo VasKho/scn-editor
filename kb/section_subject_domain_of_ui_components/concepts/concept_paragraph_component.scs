@@ -1,0 +1,16 @@
+concept_paragraph_component
+=> nrel_main_idtf:
+  [компонент параграфа] (* <- lang_ru;; *);
+  [paragraph component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, предназначенный для вывода параграфа] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component that is used to output paragraph] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

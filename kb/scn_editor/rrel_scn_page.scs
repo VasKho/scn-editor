@@ -1,0 +1,21 @@
+rrel_scn_page
+=> nrel_main_idtf:
+  [sc.n-страница'] (* <- lang_ru;; *);
+  [sc.n-page'] (* <- lang_en;; *);
+
+<- sc_node_role_relation;
+<- relation;
+<- binary_relation;
+
+=> nrel_first_domain: scn_editor;
+=> nrel_second_domain: structure;
+
+=> nrel_definition:
+  [отношение свзывающее sc-знак SCn-редактора с sc-элементом, являющимся его sc.n-страницей] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [relation that connects sc-element of SCn-editor with sc-element that is its sc.n-page] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

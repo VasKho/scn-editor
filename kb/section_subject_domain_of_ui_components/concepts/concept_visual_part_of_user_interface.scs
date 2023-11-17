@@ -1,0 +1,16 @@
+concept_visual_part_of_user_interface
+=> nrel_main_idtf:
+  [визуальная часть пользовательского интерфейса ostis-системы] (* <- lang_ru;; *);
+  [visual part of ostis-system user interface] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

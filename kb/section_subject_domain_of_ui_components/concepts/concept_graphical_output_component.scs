@@ -1,0 +1,21 @@
+concept_graphical_output_component
+=> nrel_main_idtf:
+  [компонент вывода графической информаци] (* <- lang_ru;; *);
+  [graphical output component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, предназначенный для отображения информации в графическом виде] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component that output data in graphical representation] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_progress_bar_component;
+  concept_chart_component;
+  concept_map_component;;

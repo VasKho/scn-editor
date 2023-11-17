@@ -1,0 +1,16 @@
+concept_selectable_item_component
+=> nrel_main_idtf:
+  [выбираемый элемент] (* <- lang_ru;; *);
+  [selectable item] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

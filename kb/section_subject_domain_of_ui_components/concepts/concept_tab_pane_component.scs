@@ -1,0 +1,16 @@
+concept_tab_pane_component
+=> nrel_main_idtf:
+  [панель вкладок] (* <- lang_ru;; *);
+  [tab-pane] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

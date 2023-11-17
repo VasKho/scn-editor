@@ -1,0 +1,16 @@
+concept_button_component
+=> nrel_main_idtf:
+  [кнопка] (* <- lang_ru;; *);
+  [button] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, при нажатии на который происходит программно связанное с этим нажатием действие либо событие] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [component of the user interface, when clicked, an action or event programmatically associated with this click occurs] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

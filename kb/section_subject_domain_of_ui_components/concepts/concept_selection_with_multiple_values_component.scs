@@ -1,0 +1,16 @@
+concept_selection_with_multiple_values_component
+=> nrel_main_idtf:
+  [компонент выбора нескольких значений] (* <- lang_ru;; *);
+  [selection with multiple values component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

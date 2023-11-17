@@ -1,0 +1,20 @@
+concept_decorative_user_interface_component
+=> nrel_main_idtf:
+  [декортаивный компонент пользовательского интерфейса] (* <- lang_ru;; *);
+  [decorative user interface component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_separator_component;
+  concept_blank_space_component;;

@@ -1,0 +1,16 @@
+concept_activating_component
+=> nrel_main_idtf:
+  [активирующий компонент] (* <- lang_ru;; *);
+  [activating component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

@@ -1,0 +1,16 @@
+concept_non_atomic_user_interface_component
+=> nrel_main_idtf:
+  [неатомарный компонент пользовательского интерфейса] (* <- lang_ru;; *);
+  [non-atomic user interface component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, состоящий из других компонентов пользовательского интерфейса] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component consisting of other user interface components] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

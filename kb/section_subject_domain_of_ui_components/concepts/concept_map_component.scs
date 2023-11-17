@@ -1,0 +1,20 @@
+concept_map_component
+=> nrel_main_idtf:
+  [компонент отображения карты] (* <- lang_ru;; *);
+  [user interface map component] (* <- lang_en;; *);
+
+=> nrel_idtf:
+  [карта] (* <- lang_ru;; *);
+  [map] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, предназначенный для отображения карт] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component that shows maps] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

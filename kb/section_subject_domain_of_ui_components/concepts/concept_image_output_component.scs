@@ -1,0 +1,16 @@
+concept_image_output_component
+=> nrel_main_idtf:
+  [компонент вывода изображения] (* <- lang_ru;; *);
+  [image output component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, предназначенный для показа изображения] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component that outputs image] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

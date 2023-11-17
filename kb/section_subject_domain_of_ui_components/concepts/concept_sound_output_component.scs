@@ -1,0 +1,16 @@
+concept_sound_output_component
+=> nrel_main_idtf:
+  [компонент вывода звука] (* <- lang_ru;; *);
+  [sound output component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, предназначенный для проигрывания аудио] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component that is used to play audio] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);;

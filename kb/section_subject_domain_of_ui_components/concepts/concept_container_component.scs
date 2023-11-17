@@ -1,0 +1,32 @@
+concept_container_component
+=> nrel_main_idtf:
+  [контейнер] (* <- lang_ru;; *);
+  [container] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_menu_component;
+  concept_menu_bar_component;
+  concept_toolbar_container_component;
+  concept_status_bar_component;
+  concept_table_row_container_component;
+  concept_list_container_component;
+  concept_table_cell_container_component;
+  concept_tree_container_component;
+  concept_labeled_group_component;
+  concept_tab_pane_component;
+  concept_spin_pane_component;
+  concept_tree_node_container_component;
+  concept_scroll_pane_component;
+  concept_window_component;;

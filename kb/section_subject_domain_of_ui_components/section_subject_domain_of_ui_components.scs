@@ -1,0 +1,85 @@
+section_subject_domain_of_ui_components
+=> nrel_main_idtf:
+  [Раздел. Предметная область компонентов пользовательских интерфейсов] (* <- lang_ru;; *);
+  [Section. Subject domain of user interfaces components] (* <- lang_en;; *);
+<- sc_node_class;
+<- atomic_section;
+-> rrel_key_sc_element: subject_domain_of_ui_components;;
+
+section_subject_domain_of_ui_components = [*
+  subject_domain_of_ui_components
+  <- structure;
+  <- subject_domain;
+  => nrel_main_idtf:
+    [Предметная область компонентов пользовательских интерфейсов] (* <- lang_ru;; *);
+    [Subject domain of user interfaces components] (* <- lang_en;; *);
+
+  -> rrel_maximum_studied_object_class:
+    concept_user_interface_component;
+    
+  -> rrel_not_maximum_studied_object_class:
+    concept_non_atomic_user_interface_component;
+    concept_atomic_user_interface_component;
+    concept_visual_part_of_user_interface;
+    concept_presentation_user_interface_component;
+    concept_data_output_component;
+    concept_image_output_component;
+    concept_graphical_output_component;
+    concept_chart_component;
+    concept_map_component;
+    concept_progress_bar_component;
+    concept_video_output_component;
+    concept_sound_output_component;
+    concept_text_output_component;
+    concept_headline_component;
+    concept_paragraph_component;
+    concept_message_component;
+    concept_decorative_user_interface_component;
+    concept_separator_component;
+    concept_blank_space_component;
+    concept_container_component;
+    concept_menu_component;
+    concept_menu_bar_component;
+    concept_toolbar_container_component;
+    concept_status_bar_component;
+    concept_table_row_container_component;
+    concept_list_container_component;
+    concept_table_cell_container_component;
+    concept_tree_container_component;
+    concept_tab_pane_component;
+    concept_spin_pane_component;
+    concept_tree_node_container_component;
+    concept_scroll_pane_component;
+    concept_window_component;
+    concept_modal_window_component;
+    concept_non_modal_window_component;
+    concept_interactive_user_interface_component;
+    concept_data_input_component;
+    concept_data_input_with_direct_feedback_component;
+    concept_text_input_with_direct_feedback_component;
+    concept_multiline_text_field_component;
+    concept_singleline_text_field_component;
+    concept_slider_component;
+    concept_drawing_area_component;
+    concept_selection_component;
+    concept_selection_with_multiple_values_component;
+    concept_selection_with_single_value_component;
+    concept_checkbox_component;
+    concept_radiobutton_component;
+    concept_toggle_button_component;
+    concept_selectable_item_component;
+    concept_data_input_without_direct_feedback_component;
+    concept_spin_button_component;
+    concept_speech_input_component;
+    concept_motion_input_component;
+    concept_presentation_manipulation_component;
+    concept_activating_component;
+    concept_continuous_manipulation_component;
+    concept_scrollbar_component;
+    concept_resizer_component;
+    concept_operation_trigger_component;
+    concept_command_selection_component;
+    concept_button_component;
+    concept_menu_item_component;
+    concept_command_input_component;;
+*];;

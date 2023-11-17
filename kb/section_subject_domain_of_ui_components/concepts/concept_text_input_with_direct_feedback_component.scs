@@ -1,0 +1,20 @@
+concept_text_input_with_direct_feedback_component
+=> nrel_main_idtf:
+  [компонент ввода текста с прямой ответной реакцией] (* <- lang_ru;; *);
+  [text input with direct feedback reaction component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_multiline_text_field_component;
+  concept_singleline_text_field_component;;

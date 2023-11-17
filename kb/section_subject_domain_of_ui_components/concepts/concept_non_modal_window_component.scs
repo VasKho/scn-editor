@@ -1,0 +1,16 @@
+concept_non_modal_window_component
+=> nrel_main_idtf:
+  [немодальное окно] (* <- lang_ru;; *);
+  [non-modal window] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

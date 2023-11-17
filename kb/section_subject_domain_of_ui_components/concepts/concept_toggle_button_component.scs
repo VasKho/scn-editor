@@ -1,0 +1,16 @@
+concept_toggle_button_component
+=> nrel_main_idtf:
+  [переключатель] (* <- lang_ru;; *);
+  [toggle button] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);;

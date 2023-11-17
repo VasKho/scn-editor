@@ -1,0 +1,21 @@
+concept_text_output_component
+=> nrel_main_idtf:
+  [компонент вывода текста] (* <- lang_ru;; *);
+  [text output component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [компонент пользовательского интерфейса, предназначенный для вывода текста] (*
+    <- lang_ru;;
+    => nrel_format: format_html;;
+  *);
+  [user interface component that is used to output text] (*
+    <- lang_en;;
+    => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_headline_component;
+  concept_paragraph_component;
+  concept_message_component;;

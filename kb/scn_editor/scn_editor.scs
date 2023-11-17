@@ -1,0 +1,4 @@
+scn_editor
+=> nrel_main_idtf:
+  [Редактор SCn-текстов] (* <- lang_ru;; *);
+  [Editor of SCn-texts] (* <- lang_en;; *);;

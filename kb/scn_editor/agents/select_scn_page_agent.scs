@@ -1,0 +1,33 @@
+select_scn_page_agent
+=> nrel_main_idtf:
+  [агент выбора текущей sc.n-страницы] (* <- lang_ru;; *);
+  [select current sc.n-page agent] (* <- lang_en;; *);
+
+<- sc_agent;
+
+<= nrel_sc_agent_key_sc_elements: ... (*
+  -> question_initiated;;
+  -> action_select_scn_page;;
+  -> scn_editor;;
+  -> rrel_scn_page;;
+  -> rrel_current_scn_page;;
+*);
+
+=> nrel_primary_initiation_condition: (sc_event_add_output_arc => question_initiated);
+=> nrel_initiation_condition_and_result: (..question => ..answer);;
+
+..question = [*
+  .._action _<- question_initiated;;
+  .._action _<- action_select_scn_page;;
+  .._action _-> rrel_1:: .._page;;
+*];;
+
+..answer = [*
+  scn_editor _-> rrel_scn_page:: rrel_current_scn_page:: .._page;;
+*];;
+
+action_select_scn_page
+<- sc_node_class;
+=> nrel_main_idtf:
+  [действие. выбрать текущую sc.n-страницу] (* <- lang_ru;; *);
+  [action. select current sc.n-page] (* <- lang_en;; *);;

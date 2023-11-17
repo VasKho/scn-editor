@@ -1,0 +1,21 @@
+concept_data_input_without_direct_feedback_component
+=> nrel_main_idtf:
+  [компонент ввода данных без прямой ответной реакции] (* <- lang_ru;; *);
+  [data input without direct feedback component] (* <- lang_en;; *);
+
+<- sc_node_class;
+
+=> nrel_definition:
+  [] (*
+  <- lang_ru;;
+  => nrel_format: format_html;;
+  *);
+  [] (*
+  <- lang_en;;
+  => nrel_format: format_html;;
+  *);
+
+=> nrel_inclusion:
+  concept_spin_button_component;
+  concept_speech_input_component;
+  concept_motion_input_component;;
