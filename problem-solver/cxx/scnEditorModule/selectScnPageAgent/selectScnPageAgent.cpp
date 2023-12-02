@@ -1,6 +1,6 @@
 #include "sc-agents-common/utils/IteratorUtils.hpp"
 #include "sc-agents-common/keynodes/coreKeynodes.hpp"
-
+#include "sc-agents-common/utils/AgentUtils.hpp"
 #include "selectScnPageKeynodes.hpp"
 
 #include "selectScnPageAgent.hpp"
@@ -40,6 +40,7 @@ SC_AGENT_IMPLEMENTATION(selectScnPageAgent) {
   );
   if (!testOnScnPage->Next()) {
     SC_LOG_ERROR("selectScnPageAgent: Given node is not an sc.n-page");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
 
@@ -54,7 +55,7 @@ SC_AGENT_IMPLEMENTATION(selectScnPageAgent) {
   }
 
   SC_LOG_INFO("selectScnPageAgent: New current sc.n-page selected successfully");
-  
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, newCurScnPage, false);
   return SC_RESULT_OK;
 }
 

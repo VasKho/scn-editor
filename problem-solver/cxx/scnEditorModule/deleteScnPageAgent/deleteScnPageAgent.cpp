@@ -18,6 +18,7 @@ SC_AGENT_IMPLEMENTATION(deleteScnPageAgent) {
   ScAddr page = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_1);
   if (!page.IsValid()) {
     SC_LOG_ERROR("deleteScnPageAgent: No such sc.n-page");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
 
@@ -40,7 +41,7 @@ SC_AGENT_IMPLEMENTATION(deleteScnPageAgent) {
   }
 
   SC_LOG_INFO("deleteScnPageAgent: sc.n-page deleted successfully");
-
+  utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, true);
   return SC_RESULT_OK;
 }
 

@@ -1,0 +1,26 @@
+services:
+  problem-solver:
+    labels:
+      "autoheal": "true"
+    image: scn-editor/problem-solver
+    build: 
+      context: .
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - kb-binary:/scn-editor/kb.bin
+    environment:
+      - "REBUILD_KB=0"
+      - "BINARY_PATH=/scn-editor/bin"
+      - "CONFIG_PATH=/scn-editor/scn-editor.ini"
+      - "KB_PATH=/scn-editor/kb"
+    healthcheck:
+      test: "python3 /scn-editor/problem-solver/sc-machine/scripts/healthcheck.py"
+      interval: 2s
+      timeout: 5s
+      retries: 6
+      start_period: 5s
+
+volumes:
+  kb-binary: {}
