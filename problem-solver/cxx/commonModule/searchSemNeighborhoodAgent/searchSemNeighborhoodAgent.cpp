@@ -18,6 +18,7 @@ SC_AGENT_IMPLEMENTATION(searchSemNeighborhoodAgent) {
   ScAddr rootNode = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_1);
   if (!rootNode.IsValid()) {
     SC_LOG_ERROR("searchSemNeighborhoodAgent: Invalid ScAddr");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
 
@@ -33,6 +34,7 @@ SC_AGENT_IMPLEMENTATION(searchSemNeighborhoodAgent) {
   ScTemplateGenResult result;
   if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
     SC_LOG_ERROR("searchSemNeighborhoodAgent: Failed to generate answer node");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
 
@@ -42,7 +44,7 @@ SC_AGENT_IMPLEMENTATION(searchSemNeighborhoodAgent) {
   m_memoryCtx.CreateEdge(ScType::EdgeAccessConstPosPerm, result[2], rootNode);
 
   SC_LOG_INFO("searchSemNeighborhoodAgent: Answer generated");
-  
+  utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, result[2], true);
   return SC_RESULT_OK;
 }
 

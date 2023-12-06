@@ -32,6 +32,7 @@ SC_AGENT_IMPLEMENTATION(createScnPageAgent) {
     m_memoryCtx.GetLinkContent(pageName, pageIdtf);
     if (m_memoryCtx.HelperResolveSystemIdtf(pageIdtf).IsValid()) {
       SC_LOG_ERROR("createScnPageAgent: Element with given system identifier already exists");
+      utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
       return SC_RESULT_ERROR;
     }
   }
@@ -48,6 +49,7 @@ SC_AGENT_IMPLEMENTATION(createScnPageAgent) {
   ScTemplateGenResult result;
   if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
     SC_LOG_ERROR("createScnPageAgent: Failed to create new sc.n-page");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
 
@@ -61,7 +63,7 @@ SC_AGENT_IMPLEMENTATION(createScnPageAgent) {
     ScAddr action = selectScnPageAgent::prepareActionInit(&m_memoryCtx, result[2]);
     utils::AgentUtils::getActionResultIfExists(&m_memoryCtx, action, 400);
   }
-
+  utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, result[2], true);
   return SC_RESULT_OK;
 }
 

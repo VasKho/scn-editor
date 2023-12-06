@@ -19,6 +19,7 @@ SC_AGENT_IMPLEMENTATION(openScnPageAgent) {
   ScAddr const& scnRootNode = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_1);
   if (!scnRootNode.IsValid()) {
     SC_LOG_ERROR("openScnPageAgent: Invalid ScAddr");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
 
@@ -31,7 +32,7 @@ SC_AGENT_IMPLEMENTATION(openScnPageAgent) {
   ScAddr answer = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, action, scAgentsCommon::CoreKeynodes::nrel_answer);
 
   ScTemplate templ;
-  templ.TripleWithRelation(
+  templ.Quintuple(
     openScnPageKeynodes::scn_editor,
     ScType::EdgeAccessVarPosPerm,
     answer,
@@ -42,6 +43,7 @@ SC_AGENT_IMPLEMENTATION(openScnPageAgent) {
   ScTemplateGenResult result;
   if (!m_memoryCtx.HelperGenTemplate(templ, result)) {
     SC_LOG_ERROR("openScnPageAgent: Failed to create new sc.n-page");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
   
@@ -49,7 +51,7 @@ SC_AGENT_IMPLEMENTATION(openScnPageAgent) {
   utils::AgentUtils::getActionResultIfExists(&m_memoryCtx, action, 400);
 
   SC_LOG_INFO("openScnPageAgent: new sc.n-page opened successfully");
-  
+  utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, result[2], true);
   return SC_RESULT_OK;
 }
 

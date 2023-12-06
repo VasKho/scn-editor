@@ -17,7 +17,8 @@ SC_AGENT_IMPLEMENTATION(addToScnPageAgent) {
 
   ScAddr const& elt = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_1);
   if (!elt.IsValid()) {
-    return SC_RESULT_OK;
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
+    return SC_RESULT_ERROR_INVALID_PARAMS;
   }
   ScAddr const& curPage = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, addToScnPageKeynodes::scn_editor, addToScnPageKeynodes::rrel_current_scn_page);
   

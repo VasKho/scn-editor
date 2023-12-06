@@ -17,7 +17,7 @@ SC_AGENT_IMPLEMENTATION(removeFromScnPageAgent) {
 
   ScAddr elt = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, questionNode, scAgentsCommon::CoreKeynodes::rrel_1);
   if (!elt.IsValid()) {
-    return SC_RESULT_OK;
+    return SC_RESULT_ERROR;
   }
 
   if (m_memoryCtx.GetElementType(elt).IsLink()) {
@@ -29,6 +29,7 @@ SC_AGENT_IMPLEMENTATION(removeFromScnPageAgent) {
   ScAddr curPage = utils::IteratorUtils::getAnyByOutRelation(&m_memoryCtx, removeFromScnPageKeynodes::scn_editor, removeFromScnPageKeynodes::rrel_current_scn_page);
   if (!m_memoryCtx.HelperCheckEdge(curPage, elt, ScType::EdgeAccessConstPosPerm)) {
     SC_LOG_ERROR("removeFromScnPageAgent: Given element is not on current page");
+    utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, false);
     return SC_RESULT_ERROR;
   }
   
@@ -70,7 +71,7 @@ SC_AGENT_IMPLEMENTATION(removeFromScnPageAgent) {
   }
 
   SC_LOG_INFO("removeFromScnPageAgent: Successfully removed element from sc.n-page");
-
+  utils::AgentUtils::finishAgentWork(&m_memoryCtx, questionNode, true);
   return SC_RESULT_OK;
 }
 
